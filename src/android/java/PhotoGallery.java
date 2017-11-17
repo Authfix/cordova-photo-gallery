@@ -1,4 +1,4 @@
-package tech.authfix.cordova.plugins;
+package tech.authfix.cordova.plugins.photogallery;
 
 import org.apache.cordova.CordovaPlugin;
 import org.apache.cordova.CallbackContext;
