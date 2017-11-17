@@ -9,22 +9,24 @@
     <issue>https://github.com/Authfix/cordova-photo-gallery/issues</issue>
 
     <js-module src="www/plugin.js" name="PhotoGallery">
-        <clobbers target="tech.authfix.cordova.plugins.photogallery" />
+        <clobbers target="photoGallery" />
     </js-module>
 
     <platform name="android">
-		<config-file parent="/*" target="res/xml/config.xml">
-			<feature name="PhotoViewer">
+		
+        <config-file parent="/*" target="res/xml/config.xml">
+			<feature name="PhotoGallery">
 				<param name="android-package" value="tech.authfix.cordova.plugins.photogallery" />
 			</feature>
 		</config-file>
+
 		<config-file parent="/*" target="AndroidManifest.xml" />
 
 		<config-file target="AndroidManifest.xml" parent="/manifest/application">
             <activity android:name="tech.authfix.cordova.plugins.photogallery.PhotoGalleryActivity" android:theme="@android:style/Theme.Holo.NoActionBar.Fullscreen" />
         </config-file>
 
-		<config-file parent="/manifest" target="AndroidManifest.xml">
+		<config-file target="AndroidManifest.xml" parent="/manifest">
 			<uses-permission android:name="android.permission.INTERNET" />
 			<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 			<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
