@@ -1,11 +1,17 @@
 package tech.authfix.cordova.plugins;
 
-import org.apache.cordova.*;
+import org.apache.cordova.CordovaPlugin;
+import org.apache.cordova.CallbackContext;
+import org.apache.cordova.PluginResult;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import android.content.Intent;
 import android.content.Context;
+import android.Manifest;
+import android.content.pm.PackageManager;
+
 
 public class PhotoGallery extends CordovaPlugin {
         
