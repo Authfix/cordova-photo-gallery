@@ -45,12 +45,25 @@ public class PhotoGalleryAdapter extends PagerAdapter {
     public Object instantiateItem(ViewGroup container, int position) {
 
         int itemLayoutIdentifier = getResourceIdentifier("item_photo", "layout");
+        Log.d("ITEM", "Layout identifier is " + itemLayoutIdentifier);
         int photoViewIdentifier = getResourceIdentifier("item_photo_view", "id");
+        Log.d("ITEM", "PhotoView identifier is " + photoViewIdentifier);
 
         View itemView = layoutInflater.inflate(itemLayoutIdentifier, container, false);
 
+        if(itemView == null){
+            Log.e("ITEM", "Cannot inflate the view");
+        }
+
         PhotoView imageView = itemView.findViewById(photoViewIdentifier);
+
+        if(imageView == null){
+            Log.e("ITEM", "Cannot retrieve ImageView");
+        }
+
         List<String> urls = _photos.getPhotos();
+
+        Log.d("ITEM", "Url to use : " + urls.get(position));
         Picasso.with(container.getContext()).load(urls.get(position)).into(imageView);
 
         container.addView(itemView);
