@@ -3,12 +3,11 @@ package tech.authfix.cordova.plugins;
 import org.apache.cordova.*;
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 import android.content.Intent;
 import android.content.Context;
 
 public class PhotoGallery extends CordovaPlugin {
-
-    public class PhotoViewer extends CordovaPlugin {
         
         public static final int PERMISSION_DENIED_ERROR = 20;
     
@@ -73,6 +72,4 @@ public class PhotoGallery extends CordovaPlugin {
             }
     
         }
-    }
-
 }
