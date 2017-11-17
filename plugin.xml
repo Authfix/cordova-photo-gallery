@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android"
+        id="tech.authfix.cordova.plugins.photogallery" version="0.0.1">
+    <name>Cordova Photo Gallery</name>
+    <description>A plugin to display a native photo gallery</description>
+    <license>Apache 2.0</license>
+    <keywords>cordova,photo,fallery</keywords>
+    <repo>https://github.com/Authfix/cordova-photo-gallery.git</repo>
+    <issue>https://github.com/Authfix/cordova-photo-gallery/issues</issue>
+
+    <js-module src="www/plugin.js" name="PhotoGallery">
+        <clobbers target="tech.authfix.cordova.plugins.photogallery" />
+    </js-module>
+
+    <platform name="android">
+		<config-file parent="/*" target="res/xml/config.xml">
+			<feature name="PhotoViewer">
+				<param name="android-package" value="tech.authfix.cordova.plugins.photogallery" />
+			</feature>
+		</config-file>
+		<config-file parent="/*" target="AndroidManifest.xml" />
+
+		<config-file target="AndroidManifest.xml" parent="/manifest/application">
+            <activity android:name="tech.authfix.cordova.plugins.photogallery.PhotoGalleryActivity" android:theme="@android:style/Theme.Holo.NoActionBar.Fullscreen" />
+        </config-file>
+
+		<config-file parent="/manifest" target="AndroidManifest.xml">
+			<uses-permission android:name="android.permission.INTERNET" />
+			<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+			<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+		</config-file>
+
+		<source-file src="src/android/java/PhotoGalleryActivity.java" target-dir="src/tech/authfix/cordova/plugins/photogallery" />
+        <source-file src="src/android/java/PhotoGalleryAdapter.java" target-dir="src/tech/authfix/cordova/plugins/photogallery" />
+        <source-file src="src/android/java/Photos.java" target-dir="src/tech/authfix/cordova/plugins/photogallery" />
+        <source-file src="src/android/java/PhotoGallery.java" target-dir="src/tech/authfix/cordova/plugins/photogallery" />
+
+        <source-file src="src/android/layout/item_photo.xml" target-dir="res/layout" />
+		<source-file src="src/android/layout/activity_photo_gallery.xml" target-dir="res/layout" />
+
+		<framework src="src/android/cordova-photo-gallery.gradle" custom="true" type="gradleReference" />
+	</platform>
+
+
+</plugin>
