@@ -44,9 +44,12 @@ public class PhotoGalleryAdapter extends PagerAdapter {
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
 
-        View itemView = layoutInflater.inflate(R.layout.item_photo, container, false);
+        int itemLayoutIdentifier = getResourceIdentifier("item_photo", "layout");
+        int photoViewIdentifier = getResourceIdentifier("item_photo_view", "id");
 
-        PhotoView imageView = itemView.findViewById(R.id.item_photo_view);
+        View itemView = layoutInflater.inflate(itemLayoutIdentifier, container, false);
+
+        PhotoView imageView = itemView.findViewById(photoViewIdentifier);
         List<String> urls = _photos.getPhotos();
         Picasso.with(container.getContext()).load(urls.get(position)).into(imageView);
 
@@ -78,5 +81,15 @@ public class PhotoGalleryAdapter extends PagerAdapter {
     @Override
     public boolean isViewFromObject(View view, Object object) {
         return view == object;
+    }
+
+    /**
+     * Gets resource identifier function of a name and a type
+     * @param resourceName the resource name
+     * @param resourceType the resource type (layout, drawable, values...)
+     * @return The resource identifier
+     */
+    private int getResourceIdentifier(String resourceName, String resourceType){
+        return _context.getApplicationContext().getResources().getIdentifier(resourceName, resourceType, _context.getApplicationContext().getPackageName());
     }
 }
