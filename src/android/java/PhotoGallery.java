@@ -34,16 +34,13 @@ public class PhotoGallery extends CordovaPlugin {
             
             this.args = args;
             this.callbackContext = callbackContext;
-
-            try {
-                JSONObject options = this.args.optJSONObject(2);
-            } catch(JSONException exception) { }
-
+            
             if ((cordova.hasPermission(READ) && cordova.hasPermission(WRITE))) {
                 this.launchActivity();
             } else {
                 this.getPermission();
             }
+            
             return true;
             
         }
