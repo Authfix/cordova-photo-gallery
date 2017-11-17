@@ -51,7 +51,7 @@ public class PhotoGalleryActivity extends Activity {
             options = new JSONObject(serializePluginOptions);
 
             JSONArray urlsArray = options.getJSONArray("urls");
-            int selectedPicture = options.getInt("selectedPicture");
+            int selectedPicture = options.optInt("selectedPicture");
 
             for (int i = 0; i < urlsArray.length(); i++) {
                 String url = urlsArray.getString(i);
