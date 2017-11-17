@@ -1,0 +1,30 @@
+{
+  "name": "cordova-photo-gallery",
+  "description": "Photo gallery for cordova platform",
+  "version": "0.1.0",
+  "homepage": "https://github.com/Authfix/cordova-photo-gallery",
+  "author": "Thomas Bailly (https://github.com/Authfix)",
+  "repository": "Authfix/cordova-photo-gallery",
+  "bugs": {
+    "url": "https://github.com/Authfix/cordova-photo-gallery/issues"
+  },
+  "license": "MIT",
+  "engines": {
+    "cordova" : ">=4.0.0",
+    "cordova-android" : ">=4"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "keywords": [
+    "cordova",
+    "gallery",
+    "photo"
+  ],
+  "cordova": {
+    "id": "tech.authfix.cordova.plugins.photogallery",
+    "platforms": [
+      "android"
+    ]
+  }
+}
