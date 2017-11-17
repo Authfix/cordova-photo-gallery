@@ -44,7 +44,7 @@ public class PhotoGalleryActivity extends Activity {
 
         String serializePluginOptions = this.getIntent().getStringExtra("options");
 
-        ArrayList<String> photoUrls = new ArrayList<>();
+        ArrayList<String> photoUrls = new ArrayList<String>();
 
         try {
 
