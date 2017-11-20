@@ -50,6 +50,8 @@
 
         <source-file src="src/android/menu/menu_photo_gallery.xml" target-dir="res/menu" />
 
+        <framework src="com.android.support:appcompat-v7:26+" />
+
 		<framework src="src/android/cordova-photo-gallery.gradle" custom="true" type="gradleReference" />
 	</platform>
 
