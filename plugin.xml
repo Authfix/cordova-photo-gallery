@@ -36,9 +36,19 @@
         <source-file src="src/android/java/PhotoGalleryAdapter.java" target-dir="src/tech/authfix/cordova/plugins/photogallery" />
         <source-file src="src/android/java/Photos.java" target-dir="src/tech/authfix/cordova/plugins/photogallery" />
         <source-file src="src/android/java/PhotoGallery.java" target-dir="src/tech/authfix/cordova/plugins/photogallery" />
+        <source-file src="src/android/java/PhotoGalleryGestureListener.java" target-dir="src/tech/authfix/cordova/plugins/photogallery" />
+        <source-file src="src/android/java/PhotoGalleryViewPager.java" target-dir="src/tech/authfix/cordova/plugins/photogallery" />
 
         <source-file src="src/android/layout/item_photo.xml" target-dir="res/layout" />
 		<source-file src="src/android/layout/activity_photo_gallery.xml" target-dir="res/layout" />
+
+        <source-file src="src/android/drawable/drawable-hdpi/ic_share_white_48dp.png" target-dir="res/drawable-hdpi" />
+        <source-file src="src/android/drawable/drawable-mdpi/ic_share_white_48dp.png" target-dir="res/drawable-mdpi" />
+        <source-file src="src/android/drawable/drawable-xhdpi/ic_share_white_48dp.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/drawable/drawable-xxhdpi/ic_share_white_48dp.png" target-dir="res/drawable-xxhdpi" />
+        <source-file src="src/android/drawable/drawable-xxxhdpi/ic_share_white_48dp.png" target-dir="res/drawable-xxxhdpi" />
+
+        <source-file src="src/android/menu/menu_photo_gallery.xml" target-dir="res/menu" />
 
 		<framework src="src/android/cordova-photo-gallery.gradle" custom="true" type="gradleReference" />
 	</platform>

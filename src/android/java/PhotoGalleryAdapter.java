@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.util.Log;
 
 import com.github.chrisbanes.photoview.PhotoView;
 import com.squareup.picasso.Picasso;
@@ -19,7 +18,7 @@ public class PhotoGalleryAdapter extends PagerAdapter {
     /**
      * The context of the adapter
      */
-    private final Context _context;
+    private final Context context;
 
     /**
      * The layout inflate
@@ -29,43 +28,31 @@ public class PhotoGalleryAdapter extends PagerAdapter {
     /**
      * The photo list
      */
-    private final Photos _photos;
+    private final Photos photos;
 
     /**
      * Initialize a default adapter
      * @param context The context of the adapter
      * @param photos The photo list
      */
-    public PhotoGalleryAdapter(Context context, Photos photos) {
-        _context = context;
-        layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        _photos = photos;
+    PhotoGalleryAdapter(Context context, Photos photos) {
+        this.context = context;
+        this.layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        this.photos = photos;
     }
 
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
 
         int itemLayoutIdentifier = getResourceIdentifier("item_photo", "layout");
-        Log.d("ITEM", "Layout identifier is " + itemLayoutIdentifier);
         int photoViewIdentifier = getResourceIdentifier("item_photo_view", "id");
-        Log.d("ITEM", "PhotoView identifier is " + photoViewIdentifier);
 
         View itemView = layoutInflater.inflate(itemLayoutIdentifier, container, false);
-
-        if(itemView == null){
-            Log.e("ITEM", "Cannot inflate the view");
-        }
-
         PhotoView imageView = itemView.findViewById(photoViewIdentifier);
 
-        if(imageView == null){
-            Log.e("ITEM", "Cannot retrieve ImageView");
-        }
+        List<String> urls = photos.getPhotos();
 
-        List<String> urls = _photos.getPhotos();
-
-        Log.d("ITEM", "Url to use : " + urls.get(position));
-        Picasso.with(container.getContext()).load(urls.get(position)).into(imageView);
+        Picasso.with(container.getContext()).load(urls.get(position)).fit().centerCrop().into(imageView);
 
         container.addView(itemView);
 
@@ -83,7 +70,7 @@ public class PhotoGalleryAdapter extends PagerAdapter {
      */
     @Override
     public int getCount() {
-        return _photos.getNumberOfPhotos();
+        return photos.getNumberOfPhotos();
     }
 
     /**
@@ -104,6 +91,6 @@ public class PhotoGalleryAdapter extends PagerAdapter {
      * @return The resource identifier
      */
     private int getResourceIdentifier(String resourceName, String resourceType){
-        return _context.getApplicationContext().getResources().getIdentifier(resourceName, resourceType, _context.getApplicationContext().getPackageName());
+        return context.getApplicationContext().getResources().getIdentifier(resourceName, resourceType, context.getApplicationContext().getPackageName());
     }
 }
