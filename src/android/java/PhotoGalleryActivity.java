@@ -4,12 +4,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -17,7 +19,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class PhotoGalleryActivity extends AppCompatActivity {
+public class PhotoGalleryActivity extends AppCompatActivity implements ViewPager.OnPageChangeListener {
 
     /**
      * Get the tag of this activity
@@ -28,6 +30,16 @@ public class PhotoGalleryActivity extends AppCompatActivity {
      * The code used for sharing activity
      */
     private static final int ShareRequestCode = 375;
+
+    /**
+     * The current image position
+     */
+    private TextView currentPageTextView;
+
+    /**
+     * The total images
+     */
+    private TextView totalImagesTextView;
 
     /**
      * Occurs when the activity is being created
@@ -41,8 +53,13 @@ public class PhotoGalleryActivity extends AppCompatActivity {
         int pagerLayoutIdentifier = getResourceIdentifier("photo_gallery.pager", "id");
         int photoNumberToolbarIdentifier = getResourceIdentifier("photo_gallery.picture_number", "id");
         int appBarLayoutIdentifier = getResourceIdentifier("photo_gallery.appbar_layout", "id");
+        int totalImagesNumberIdentifier = getResourceIdentifier("photo_gallery.total_images", "id");
+        int currentImagePositionIdentifier = getResourceIdentifier("photo_gallery.current_image", "id");
 
         setContentView(photoLayoutIdentifier);
+
+        this.currentPageTextView = findViewById(currentImagePositionIdentifier);
+        this.totalImagesTextView = findViewById(totalImagesNumberIdentifier);
 
         ActionBar actionBar = setupActionBar();
         Toolbar photoNumberToolbar = findViewById(photoNumberToolbarIdentifier);
@@ -51,7 +68,7 @@ public class PhotoGalleryActivity extends AppCompatActivity {
         appBarLayout.bringToFront();
 
         String serializePluginOptions = this.getIntent().getStringExtra("options");
-        
+
         ArrayList<String> photoUrls = new ArrayList<String>();
 
         try {
@@ -66,13 +83,19 @@ public class PhotoGalleryActivity extends AppCompatActivity {
                 photoUrls.add(url);
             }
 
+            this.totalImagesTextView.setText(String.valueOf(urlsArray.length()));
+
+            this.onPageSelected(selectedPicture);
+
             Photos photos = new Photos(photoUrls);
             PhotoGalleryAdapter photoGalleryAdapter = new PhotoGalleryAdapter(this, photos);
 
             PhotoGalleryViewPager viewPager = findViewById(pagerLayoutIdentifier);
+            viewPager.addOnPageChangeListener(this);
             viewPager.setGestureListener(new PhotoGalleryGestureListener(actionBar, photoNumberToolbar));
             viewPager.setAdapter(photoGalleryAdapter);
             viewPager.setCurrentItem(selectedPicture);
+
 
         } catch (JSONException e) {
 
@@ -164,5 +187,20 @@ public class PhotoGalleryActivity extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
 
         return actionBar;
+    }
+
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+    }
+
+    @Override
+    public void onPageSelected(int position) {
+        this.currentPageTextView.setText(String.valueOf(position + 1));
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int state) {
+
     }
 }
