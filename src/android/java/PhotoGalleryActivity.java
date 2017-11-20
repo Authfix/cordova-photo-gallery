@@ -43,7 +43,7 @@ public class PhotoGalleryActivity extends AppCompatActivity {
 
         ActionBar actionBar = setupActionBar();
 
-        //String serializePluginOptions = this.getIntent().getStringExtra("options");
+        String serializePluginOptions = this.getIntent().getStringExtra("options");
 
         ArrayList<String> photoUrls = new ArrayList<String>();
 
