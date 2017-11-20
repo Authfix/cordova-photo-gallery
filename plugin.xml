@@ -23,7 +23,7 @@
 		<config-file parent="/*" target=" AndroidManifest.xml" />
 
 		<config-file target="AndroidManifest.xml" parent="/manifest/application">
-            <activity android:name="tech.authfix.cordova.plugins.photogallery.PhotoGalleryActivity" android:theme="@android:style/Theme.Holo.NoActionBar.Fullscreen" />
+            <activity android:name="tech.authfix.cordova.plugins.photogallery.PhotoGalleryActivity" android:theme="@android:style/Theme.AppCompat.Light.NoActionBar" />
         </config-file>
 
 		<config-file target="AndroidManifest.xml" parent="/manifest">
