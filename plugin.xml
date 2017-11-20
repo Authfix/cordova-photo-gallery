@@ -48,6 +48,9 @@
         <source-file src="src/android/drawable/drawable-xxhdpi/ic_share_white_48dp.png" target-dir="res/drawable-xxhdpi" />
         <source-file src="src/android/drawable/drawable-xxxhdpi/ic_share_white_48dp.png" target-dir="res/drawable-xxxhdpi" />
 
+        <resource-file src="src/android/values/photogallerystrings.xml" target="res/values/photogallerystrings.xml" />
+        <resource-file src="src/android/values-fr/photogallerystrings.xml" target="res/values-fr/photogallerystrings.xml" />
+
         <source-file src="src/android/menu/menu_photo_gallery.xml" target-dir="res/menu" />
 
         <framework src="com.android.support:appcompat-v7:26+" />
