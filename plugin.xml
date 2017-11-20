@@ -33,6 +33,7 @@
 		</config-file>
 
         <framework src="com.android.support:support-v4:+" />
+        <framework src="com.android.support:design:+" />
         <framework src="com.android.support:appcompat-v7:+"/>
 
 		<source-file src="src/android/java/PhotoGalleryActivity.java" target-dir="src/tech/authfix/cordova/plugins/photogallery" />
