@@ -134,6 +134,10 @@ public class PhotoGalleryActivity extends AppCompatActivity implements ViewPager
             return true;
         }
 
+        if(android.R.id.home == selectedMenuItemIdentifier.intValue()){
+            finish();
+        }
+
         return super.onOptionsItemSelected(item);
     }
 
