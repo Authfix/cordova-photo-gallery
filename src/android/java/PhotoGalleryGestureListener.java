@@ -1,16 +1,21 @@
 package tech.authfix.cordova.plugins.photogallery;
 
 import android.support.v7.app.ActionBar;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.GestureDetector.SimpleOnGestureListener;
 import android.view.MotionEvent;
+import android.view.View;
 
 public class PhotoGalleryGestureListener extends SimpleOnGestureListener {
 
     private final ActionBar toolbar;
 
-    public PhotoGalleryGestureListener(ActionBar toolbar) {
+    private final Toolbar photoNumberToolbar;
+
+    public PhotoGalleryGestureListener(ActionBar toolbar, Toolbar photoNumberToolbar) {
         this.toolbar = toolbar;
+        this.photoNumberToolbar = photoNumberToolbar;
     }
 
     @Override
@@ -31,9 +36,11 @@ public class PhotoGalleryGestureListener extends SimpleOnGestureListener {
 
         if(toolbar.isShowing()){
             toolbar.hide();
+            photoNumberToolbar.setVisibility(View.INVISIBLE);
         }
         else {
             toolbar.show();
+            photoNumberToolbar.setVisibility(View.VISIBLE);
         }
     }
 }

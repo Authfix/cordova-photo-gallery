@@ -3,6 +3,7 @@ package tech.authfix.cordova.plugins.photogallery;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.AppBarLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -38,13 +39,19 @@ public class PhotoGalleryActivity extends AppCompatActivity {
 
         int photoLayoutIdentifier = getResourceIdentifier("activity_photo_gallery", "layout");
         int pagerLayoutIdentifier = getResourceIdentifier("photo_gallery.pager", "id");
+        int photoNumberToolbarIdentifier = getResourceIdentifier("photo_gallery.picture_number", "id");
+        int appBarLayoutIdentifier = getResourceIdentifier("photo_gallery.appbar_layout", "id");
 
         setContentView(photoLayoutIdentifier);
 
         ActionBar actionBar = setupActionBar();
+        Toolbar photoNumberToolbar = findViewById(photoNumberToolbarIdentifier);
+
+        AppBarLayout appBarLayout = findViewById(appBarLayoutIdentifier);
+        appBarLayout.bringToFront();
 
         String serializePluginOptions = this.getIntent().getStringExtra("options");
-
+        
         ArrayList<String> photoUrls = new ArrayList<String>();
 
         try {
@@ -63,7 +70,7 @@ public class PhotoGalleryActivity extends AppCompatActivity {
             PhotoGalleryAdapter photoGalleryAdapter = new PhotoGalleryAdapter(this, photos);
 
             PhotoGalleryViewPager viewPager = findViewById(pagerLayoutIdentifier);
-            viewPager.setGestureListener(new PhotoGalleryGestureListener(actionBar));
+            viewPager.setGestureListener(new PhotoGalleryGestureListener(actionBar, photoNumberToolbar));
             viewPager.setAdapter(photoGalleryAdapter);
             viewPager.setCurrentItem(selectedPicture);
 
