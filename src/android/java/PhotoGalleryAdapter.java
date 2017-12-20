@@ -48,6 +48,7 @@ public class PhotoGalleryAdapter extends PagerAdapter {
         int photoViewIdentifier = getResourceIdentifier("item_photo_view", "id");
 
         View itemView = layoutInflater.inflate(itemLayoutIdentifier, container, false);
+        itemView.setTag(position);
         PhotoView imageView = itemView.findViewById(photoViewIdentifier);
 
         List<String> urls = photos.getPhotos();

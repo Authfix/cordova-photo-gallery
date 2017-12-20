@@ -1,7 +1,12 @@
 package tech.authfix.cordova.plugins.photogallery;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.view.ViewPager;
@@ -11,12 +16,18 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.github.chrisbanes.photoview.PhotoView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class PhotoGalleryActivity extends AppCompatActivity implements ViewPager.OnPageChangeListener {
@@ -40,6 +51,16 @@ public class PhotoGalleryActivity extends AppCompatActivity implements ViewPager
      * The total images
      */
     private TextView totalImagesTextView;
+
+    /**
+     * Gets the photos
+     */
+    private Photos photos;
+
+    /**
+     * The view pager
+     */
+    private PhotoGalleryViewPager viewPager;
 
     /**
      * Occurs when the activity is being created
@@ -85,12 +106,11 @@ public class PhotoGalleryActivity extends AppCompatActivity implements ViewPager
 
             this.totalImagesTextView.setText(String.valueOf(urlsArray.length()));
 
-            this.onPageSelected(selectedPicture);
+            photos = new Photos(photoUrls);
 
-            Photos photos = new Photos(photoUrls);
             PhotoGalleryAdapter photoGalleryAdapter = new PhotoGalleryAdapter(this, photos);
 
-            PhotoGalleryViewPager viewPager = findViewById(pagerLayoutIdentifier);
+            viewPager = findViewById(pagerLayoutIdentifier);
             viewPager.addOnPageChangeListener(this);
             viewPager.setGestureListener(new PhotoGalleryGestureListener(actionBar, photoNumberToolbar));
             viewPager.setAdapter(photoGalleryAdapter);
@@ -168,14 +188,56 @@ public class PhotoGalleryActivity extends AppCompatActivity implements ViewPager
      */
     private void shareImage(){
 
+        LinearLayout currentView = this.viewPager.findViewWithTag(this.photos.getSelectedPhoto());
+        PhotoView p = currentView.findViewById(this.getResourceIdentifier("item_photo_view", "id"));
+
+        Uri uri = this.getLocalBitmapUri(p);
+
         Intent sharingIntent = new Intent(Intent.ACTION_SEND);
         sharingIntent.setType("image/*");
 
-        //sharingIntent.putExtra(Intent.EXTRA_STREAM, bmpUri);
+        sharingIntent.putExtra(Intent.EXTRA_STREAM, uri);
 
         Intent chooser = Intent.createChooser(sharingIntent, "Share");
         startActivityForResult(chooser, ShareRequestCode);
     }
+
+    /**
+     * Create Local Image due to Restrictions
+     *
+     * @param imageView
+     *
+     * @return
+     */
+    public Uri getLocalBitmapUri(PhotoView imageView) {
+        Drawable drawable = imageView.getDrawable();
+        Bitmap bmp = null;
+
+        if (drawable instanceof BitmapDrawable){
+            bmp = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
+        } else {
+            return null;
+        }
+
+        // Store image to default external storage directory
+        Uri bmpUri = null;
+        try {
+            File file =  new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS
+                    ), "share_image_" + System.currentTimeMillis() + ".jpeg");
+
+            file.getParentFile().mkdirs();
+
+            FileOutputStream out = new FileOutputStream(file);
+            bmp.compress(Bitmap.CompressFormat.PNG, 90, out);
+            out.close();
+
+            bmpUri = Uri.fromFile(file);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return bmpUri;
+    }
+
 
     /**
      * Setup the action bar
@@ -200,6 +262,7 @@ public class PhotoGalleryActivity extends AppCompatActivity implements ViewPager
 
     @Override
     public void onPageSelected(int position) {
+        this.photos.setSelectedPhoto(position);
         this.currentPageTextView.setText(String.valueOf(position + 1));
     }
 
