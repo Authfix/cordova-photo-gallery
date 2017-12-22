@@ -116,7 +116,8 @@ public class PhotoGalleryActivity extends AppCompatActivity implements ViewPager
             viewPager.setAdapter(photoGalleryAdapter);
             viewPager.setCurrentItem(selectedPicture);
 
-
+            this.onPageSelected(selectedPicture);
+            
         } catch (JSONException e) {
 
             // TODO : Manage missing options issue.
