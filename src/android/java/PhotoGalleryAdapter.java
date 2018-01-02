@@ -53,7 +53,7 @@ public class PhotoGalleryAdapter extends PagerAdapter {
 
         List<String> urls = photos.getPhotos();
 
-        Picasso.with(container.getContext()).load(urls.get(position)).into(imageView);
+        Picasso.with(container.getContext()).load(urls.get(position)).fit().centerInside().centerinto(imageView);
 
         container.addView(itemView);
 
